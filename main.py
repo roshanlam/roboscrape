@@ -35,13 +35,16 @@ url_base = ('.'.join(url_base.split('.')[-2:]))
 url_base = url_base.split('.')[0]
 robots = get_page(url)
 sitemaps = get_sitemaps(robots)
-print(sitemaps)
+
 df = to_dataframe(robots)
 df.head(10)
 csv_file_name = str(url_base)
+
 if os.path.isdir('Data'):
-    df.to_csv('Data/'+csv_file_name + '-robots' + '.csv')
+    df.to_csv('Data/'+csv_file_name + '-robots.csv')
 else:
     os.mkdir('Data')
-    df.to_csv('Data/'+csv_file_name+'-robots'+'.csv')
+    df.to_csv('Data/'+csv_file_name+'-robots.csv')
 
+sitemap_link = df[df['directive'] == 'Sitemap']
+website_links = df[df['directive'] == 'Allow']
